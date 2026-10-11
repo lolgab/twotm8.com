@@ -21,17 +21,16 @@ COPY . /sources
 
 RUN cd /sources && sbt clean buildApp
 
-FROM unit:1.30.0-minimal as runtime_deps
+# The executable embeds unitd, which needs OpenSSL 3 and PCRE2
+FROM debian:bookworm-slim
 
-FROM runtime_deps
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libssl3 libpcre2-8-0 ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /sources/build/twotm8 /usr/bin/twotm8
 COPY --from=builder /sources/build/ /www/static
 
-COPY config.json /docker-entrypoint.d/config.json
-
-RUN chmod 0777 /usr/bin/twotm8
-
 EXPOSE 8080
 
-CMD ["unitd", "--no-daemon", "--control", "unix:/var/run/control.unit.sock", "--log", "/dev/stderr"]
+CMD ["/usr/bin/twotm8"]
