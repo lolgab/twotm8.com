@@ -72,9 +72,7 @@ object Auth:
     enc.encodeToString(upickle.default.writeToByteArray(headers))
   )
 
-  def token(authorId: AuthorId)(using Zone)(using
-      config: Settings
-  ): Token =
+  def token(authorId: AuthorId)(using Zone, config: Settings): Token =
     val exp =
       (System.currentTimeMillis / 1000) + config.tokenExpiration.toSeconds
 
