@@ -10,7 +10,7 @@ object TestAuth extends weaver.FunSuite:
       "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
     val knownPassword = "password"
 
-    Zone { z ?=>
+    Zone {
       expect(OpenSSL.sha256(knownPassword) == knownHash)
     }
   }
@@ -52,7 +52,7 @@ object TestAuth extends weaver.FunSuite:
     given Settings = Settings(1.seconds, Secret("hello1"))
     val id = AuthorId(UUID.randomUUID())
 
-    Zone { z ?=>
+    Zone {
 
       val token1 = Auth.token(id)
       def isValid = Auth.validate(token1.jwt).isDefined
