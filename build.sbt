@@ -228,8 +228,7 @@ lazy val Axes = new {
 val Versions = new {
   val Scala = "3.9.0"
 
-  // UnitConfig is not in a released snunit yet: this is a local snapshot (./mill snunit-tapir.publishLocal)
-  val SNUnit = sys.env.getOrElse("SNUNIT_VERSION", "cli-v0.1.0-DIRTYfec6431e")
+  val SNUnit = "0.13.0"
 
   val Tapir = "1.13.33"
 

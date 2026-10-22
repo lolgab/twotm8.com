@@ -16,4 +16,4 @@ libraryDependencySchemes ++= Seq(
   "org.scala-native" % "sbt-scala-native" % VersionScheme.Always
 )
 
-addSbtPlugin("com.github.lolgab" % "sbt-snunit" % "0.1.0-SNAPSHOT")
+addSbtPlugin("com.github.lolgab" % "sbt-snunit" % "0.13.0")
