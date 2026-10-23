@@ -10,12 +10,12 @@ ENV CI="true"
 RUN curl -fL -o /bin/cs https://github.com/coursier/launchers/raw/master/coursier && \
     chmod +x /bin/cs && cs --version
 
-RUN curl -fL -o /bin/sbt https://raw.githubusercontent.com/sbt/sbt/1.13.x/sbt && \
+RUN curl -fL -o /bin/sbt https://raw.githubusercontent.com/sbt/sbt/v1.13.0/sbt && \
     chmod +x /bin/sbt && sbt -V --sbt-create    
 
 COPY vcpkg.json /sources/
 
-RUN cs launch com.indoorvivants.vcpkg:sn-vcpkg_3:0.0.21 -- install-manifest /sources/vcpkg.json -v
+RUN cs launch com.indoorvivants.vcpkg:sn-vcpkg_3:0.0.21 -- install --manifest /sources/vcpkg.json -v
 
 COPY . /sources
 
