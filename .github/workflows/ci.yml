@@ -15,16 +15,18 @@ jobs:
     name: Build
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           distribution: 'temurin' 
           java-version: '17'
           cache: sbt
 
+      - uses: sbt/setup-sbt@v1
+
       - name: Cache vcpkg
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/Library/Caches/sbt-vcpkg/vcpkg
@@ -63,15 +65,17 @@ jobs:
     runs-on: ubuntu-24.04
     if: github.event_name != 'pull_request' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           distribution: 'temurin' 
           java-version: '17'
           cache: sbt
+
+      - uses: sbt/setup-sbt@v1
 
       - name: Publish ${{ github.ref }}
         run: sbt ci-release
@@ -86,7 +90,7 @@ jobs:
     runs-on: ubuntu-24.04
     if: "!(startsWith(github.ref, 'refs/tags/v') || (github.ref == 'refs/heads/main'))"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
 
@@ -107,15 +111,17 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v') || (github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 
+      - uses: actions/checkout@v4 
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           distribution: 'temurin' 
           java-version: '17'
           cache: sbt
+
+      - uses: sbt/setup-sbt@v1
 
       - uses: superfly/flyctl-actions/setup-flyctl@master
 
@@ -133,7 +139,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 
+      - uses: actions/checkout@v4 
         with:
           fetch-depth: 0
 
