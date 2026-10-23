@@ -36,6 +36,9 @@ jobs:
           
       - uses: rui314/setup-mold@v1
 
+      - name: Install vcpkg build requirements
+        run: sudo apt-get update && sudo apt-get install -y autoconf autoconf-archive automake libtool
+
       - name: Setup Postgres
         run: |
           set -e
