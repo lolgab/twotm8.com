@@ -13,7 +13,7 @@ concurrency:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
 
@@ -60,7 +60,7 @@ jobs:
   release:
     name: Release
     needs: [build]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     if: github.event_name != 'pull_request' && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/main')
     steps:
       - uses: actions/checkout@v3
@@ -83,7 +83,7 @@ jobs:
 
   docker-build:
     name: Docker build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     if: "!(startsWith(github.ref, 'refs/tags/v') || (github.ref == 'refs/heads/main'))"
     steps:
       - uses: actions/checkout@v3
