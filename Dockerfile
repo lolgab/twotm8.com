@@ -1,21 +1,21 @@
-FROM eclipse-temurin:17-focal as builder
+FROM eclipse-temurin:17-noble AS builder
 
 COPY scripts /scripts
 
 RUN /scripts/setup-debian.sh
 
-ENV SN_RELEASE "fast"
-ENV CI "true"
+ENV SN_RELEASE="fast"
+ENV CI="true"
 
 RUN curl -fL -o /bin/cs https://github.com/coursier/launchers/raw/master/coursier && \
     chmod +x /bin/cs && cs --version
 
-RUN curl -fL -o /bin/sbt https://raw.githubusercontent.com/sbt/sbt/1.9.x/sbt && \
+RUN curl -fL -o /bin/sbt https://raw.githubusercontent.com/sbt/sbt/1.13.x/sbt && \
     chmod +x /bin/sbt && sbt -V --sbt-create    
 
 COPY vcpkg.json /sources/
 
-RUN cs launch com.indoorvivants.vcpkg:sn-vcpkg_3:0.0.12 -- install-manifest /sources/vcpkg.json -v
+RUN cs launch com.indoorvivants.vcpkg:sn-vcpkg_3:0.0.21 -- install-manifest /sources/vcpkg.json -v
 
 COPY . /sources
 
